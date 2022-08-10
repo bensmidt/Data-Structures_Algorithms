@@ -1,4 +1,5 @@
 from cmath import inf
+from random import randint
 
 class RecDP (object): 
     #1 Divide-And-Conquer
@@ -39,9 +40,8 @@ class RecDP (object):
                 return right_low, right_high, right_sum
             else: 
                 return cross_low, cross_high, cross_sum
-
-
     '''
+
     def find_max_crossing_subarray(self, A, low, mid, high): 
         """
         returns the maximum subarray between two continous subarrays in a list of integers
@@ -49,7 +49,7 @@ class RecDP (object):
         :type A: List[int]
         :type low: int
         :type mid: int
-        :type high: int
+        :type high: intm
 
         :rtype max_left: int
         :rtype max_right: int
@@ -152,16 +152,65 @@ class RecDP (object):
         return self.triple_step_helper(n, posbl_steps_ls)
 
     #4 Recursion w/ Backtracking
-    def robot_grid (self, matrix): 
+    class Queens (object):
+        def __init__ (self, n = 8):
+            self.board = []
+            self.n = n
+            for i in range (self.n):
+                row = []
+                for j in range (self.n):
+                    row.append ('*')
+                self.board.append (row)
 
-    
+        # print the board
+        def print_board (self):
+            for i in range (self.n):
+                for j in range (self.n):
+                    print (self.board[i][j], end = ' ')
+                print ()
+            print ()
+
+        # check if a position on the board is valid
+        def is_valid (self, row, col):
+            for i in range (self.n):
+                if (self.board[row][i] == 'Q') or (self.board[i][col] == 'Q'):
+                    return False
+            for i in range (self.n):
+                for j in range (self.n):
+                    row_diff = abs (row - i)
+                    col_diff = abs (col - j)
+                    if (row_diff == col_diff) and (self.board[i][j] == 'Q'):
+                        return False
+            return True
+            
+        # do the recursive backtracking
+        def recursive_solve (self, col, solns):
+            if (col == self.n):
+                solns.append(self.board)
+            else:
+                for i in range (self.n):
+                    if (self.is_valid (i, col)):
+                        self.board[i][col] = 'Q'
+                        if (self.recursive_solve(col + 1, solns)):
+                            return True
+                        self.board[i][col] = '*'
+                return False
+
+        # if the problem has a solution print the board
+        def solve (self):
+            solns = []
+            self.recursive_solve (0, solns)
+            soln_count = len(solns)
+            return soln_count
+        
+    #5 Recursion w/ Backtracking
+    def robot_grid (self, matrix):     
         """Calculate a valid path for a robot to travel through a matrix
-
-
         """
         pass
 
 class Test (object): 
+    # Test #1: Max Subarray
     def find_max_subarray (self): 
         A1 = [13, -3, -25, 20, -3, -16, -23, 18, 20, -7, 12, -5, -22, 15, -4, 7]
         A2 = [-2, 1, -3, 4, -1, 2, 1, -5, 4]
@@ -176,9 +225,23 @@ class Test (object):
 
         print("All 4 find_max_subarrary Test Cases Passed!")
 
+    # Test #4: Eight Queens
+    def eight_queens (self, num_cases): 
+        # eight queens answers
+        ans = [0, 1, 0, 0, 2, 10, 4, 40, 92, 352, 724, 2680, 14200]
+
+        # tests
+        for i in range(1, num_cases+1): 
+            queen_test = RecDP.Queens(i)
+            assert queen_test.solve() == ans[i]
+        
+        print("All {} eight_queens Test Cases passed!".format(i))
+
 def main(): 
     test = Test()
-    test.find_max_subarray()
+
+    # test.find_max_subarray()  # Test 1: Max Subarray
+    # test.eight_queens(num_cases = 8)  # Test 4: Eight Queens
 
 if __name__ == "__main__": 
     main()
