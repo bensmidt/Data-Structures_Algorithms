@@ -207,7 +207,7 @@ class RecDP (object):
     def robot_grid (self, matrix):     
         """Calculate a valid path for a robot to travel through a matrix
         """
-        pass
+        
 
 class Test (object): 
     # Test #1: Max Subarray
