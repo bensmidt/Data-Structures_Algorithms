@@ -1,7 +1,8 @@
 from math import inf
 
 class Sorting (object): 
-
+    
+    # 1 Merge Sort
     def sorted_merge (self, nums1, m, nums2, n): 
         """
         Adds the sorted numbers from nums2 into nums1 to make one large sorted array
@@ -27,25 +28,23 @@ class Sorting (object):
 
     def group_anagrams (self, anagrams): 
         """Sorts an array of strings containing anagrams such that all the anagrams are placed next to each other
-
-
-
         """
 
-def sorted_merge_test (): 
+  
+class Test (object):   
+  def sorted_merge (self): 
     sort_merge = Sorting()
     
     assert sort_merge.sorted_merge([], 0, [], 0) == []
-    print("Test 1 passed")
     assert sort_merge.sorted_merge([0], 1, [], 0) == [0]
-    print("Test 2 passed")
     assert sort_merge.sorted_merge([0], 0, [1], 1) == [1]
-    print("Test 3 passed")
     assert sort_merge.sorted_merge([0, 1, 3, 6, 8, 9, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0], 7, [4, 5, 6, 7, 8, 9, 10, 56, 56], 9) == [0, 1, 3, 4, 5, 6, 6, 7, 8, 8, 9, 9, 10, 10, 56, 56]
     print("All sorted_merge test cases passed!")
 
 def main(): 
-    sorted_merge_test()
+    test = Test()
+
+    test.sorted_merge()  # 1
 
 
 if __name__ == "__main__": 
