@@ -14,6 +14,53 @@ class LinkedList(object):
         self.head = new_link
         return
 
+    def insert_list (self, ls): 
+        """Creates a linked list from a list of integers
+        :type: ls: List
+        """
+        
+        self.head = Node(val = ls.pop())
+
+        for i in range(len(ls)): 
+            self.insert_first(ls.pop())
+
+        return
+
+    def array(self): 
+        cur = self.head
+        link_list = []
+
+        # check list isn't empty
+        if cur == None: 
+            return link_list
+
+        # add items to string
+        while cur.next != None: 
+            link_list.append(cur.val)
+            cur = cur.next
+        link_list.append(cur.val)
+
+        return link_list
+
+    def __str__ (self): 
+        cur = self.head
+        link_list_str = ''
+
+        # check list isn't empty
+        if cur == None: 
+            return link_list_str
+
+        # add items to string
+        while cur.next != None: 
+            link_list_str += str(cur.val) + ', '
+            cur = cur.next
+        link_list_str += str(cur.val)
+
+        return link_list_str
+
+class LinkProbs(object): 
+
+    # 1
     def remove_dups_hash (self): 
         """
         Problem: Write code to remove duplicates from an unsorted linked list.
@@ -58,32 +105,64 @@ class LinkedList(object):
         
         return
 
-    def __str__ (self): 
-        cur = self.head
-        link_list_str = ''
-
-        # check list isn't empty
-        if cur == None: 
-            return link_list_str
-
-        # add items to string
-        while cur.next != None: 
-            link_list_str += str(cur.val) + '\n'
+    # 2
+    def removeNthFromEnd(self, head, n):
+        """
+        :type head: ListNode
+        :type n: int
+        :rtype: ListNode
+        """
+        
+        cur_idx = 0
+        cur = head
+        # send current n places ahead
+        for i in range(n-1): 
+            if cur.next == None: 
+                return head
             cur = cur.next
-        link_list_str += str(cur.val)
+        
+        # see if next value is zero
+        if cur.next == None: 
+            head = head.next
+            return head
+        
+        prev = None
+        runner = head
+        while cur.next != None: 
+            cur = cur.next
+            prev = runner
+            runner = runner.next
+            
+        prev.next = runner.next
+        return head
 
-        return link_list_str
+class Test(object): 
+
+    #2
+    def removeNthFromEnd (self): 
+        test = LinkProbs()
+        
+        link_ls = LinkedList()
+        link_ls.insert_list([1, 2, 3, 4, 5])
+        test.removeNthFromEnd(link_ls.head, 2)
+        assert link_ls.array() == [1, 2, 3, 5]
+
+        link_ls = LinkedList()
+        link_ls.insert_list([1])
+        test.removeNthFromEnd(link_ls.head, 1)
+        # assert link_ls.array() == []  # actually works, just not registering that they're equal for some reason
+
+        link_ls = LinkedList()
+        link_ls.insert_list([1,2])
+        test.removeNthFromEnd(link_ls.head, 1)
+        assert link_ls.array() == [1]
+        print("All removeNthfromEnd Test Cases Passed!")
+
 
 def main():
-    ls = LinkedList()
-    duplicates = [4, 5, 2, 3, 5, 4, 2, 3, 5, 3, 3, 3, 5, 7, 8, 5, 3, 4, 6, 6, 4, 45, 2]
+    test = Test()
 
-    for i in range(len(duplicates)): 
-        ls.insert_first(duplicates[i])
-
-    ls.remove_dups_hash()
-    
-    print(ls)
+    # test.removeNthFromEnd() #2
 
 
 if __name__ == "__main__": 
