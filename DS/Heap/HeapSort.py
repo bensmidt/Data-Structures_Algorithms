@@ -42,7 +42,7 @@ HEAPSORT(A):
 COMPLEXITY: O(n lg n)
 '''
 
-class Heapsort (object):
+class Sort (object):
     def __init__ (self, A, heap_size = 0): 
         self.heap_size = heap_size
         self.length = len(A)
@@ -91,39 +91,13 @@ class Heapsort (object):
             self.min_heapify(A, 0)
 
 
-class PriorityQueue(object): 
-    def __init__ (self, A, heap_size): 
-        self.A = A
-        self.heap_size = heap_size
-        self.Sort = Heapsort(self.A, self.heap_size)
-        self.Sort.heapsort(self.A)
-
-    def heap_min (self): 
-        return self.A[0]
-
-    def extract_min (self): 
-        # check if heap_size is valid
-        if self.heap_size < 1: 
-            print("error: heap underflow")
-            return None
-        
-        max = self.A[0]
-        self.A[0] = self.A[self.heap_size]
-        self.Sort.min_heapify(self.A, 0)
-        return max
-
-
-
 def main(): 
     A = [3, 5, 1, 6, 67, 23, 635, 6, 6, 82, 2]
-    Sort = Heapsort(A)
+    sort = Sort(A)
     
-    Sort.heapsort(A)
-    print(A)
-
-    PriQ = PriorityQueue(A, len(A)-1)
-    print(PriQ.extract_min())
-    print(PriQ.A)
+    sort.heapsort(A)
+    assert A == [1, 2, 3, 5, 6, 6, 6, 23, 67, 82, 635]
+    print("All Test Cases Passed!")
 
 if __name__ == "__main__": 
     main()
