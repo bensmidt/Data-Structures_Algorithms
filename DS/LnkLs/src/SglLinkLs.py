@@ -18,9 +18,14 @@ class LinkedList(object):
         """Creates a linked list from a list of integers
         :type: ls: List
         """
+        # check list isn't empty
+        if len(ls) == 0: 
+            return
         
+        # define head
         self.head = Node(val = ls.pop())
 
+        # create links
         for i in range(len(ls)): 
             self.insert_first(ls.pop())
 
