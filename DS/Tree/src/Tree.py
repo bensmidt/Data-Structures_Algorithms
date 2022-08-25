@@ -9,14 +9,11 @@ class BinaryTree (object):
     def __init__(self, root = None): 
         self.root = None
 
-    def add_node(self, val): 
+    def add_node (self, val): 
         """Adds data to a binary tree
         Input:
         - val: value of node to be added
         """
-        if val == None: 
-            print("Error: 'None' cannot be added to Tree")
-            return
 
         # empty tree, set node to be root
         if self.root == None: 
@@ -39,14 +36,17 @@ class BinaryTree (object):
 
         return
 
-    def add_list(self, node_list: list):  
+    def add_list(self, node_list: list, as_is = True):  
         """Adds a list of data to the binary tree
         Input: 
         - node_list: a list values to be added to binary tree
+        - as_is: flag that changes adding to values based on position in list instead of order
         """
         for i in range(len(node_list)): 
             self.add_node(node_list[i])
+
         return
+
 
     def print(self): 
         print(self.array())
