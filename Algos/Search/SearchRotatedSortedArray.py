@@ -72,6 +72,9 @@ class Solution (object):
         """
         if len(nums) == 0: 
             return -1
+            
+        if len(nums) == 1: 
+            return -1 + (nums[0] == target)
 
         unrotated_nums, k = self.unrotate_array_idx(nums)
         num_spots_rotated = len(nums) - k
